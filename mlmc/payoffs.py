@@ -18,11 +18,6 @@ def asian_payoff_per_path(paths, strike_price):
         payoffs[idx] = asian_payoff_single_path(path, strike_price)
     return payoffs
 
-@njit
-def asian_price_mc(paths, strike_price, r, T):
-    payoffs = asian_payoff_per_path(paths, strike_price)
-    return np.exp(-r*T) * np.mean(payoffs)
-
 
 '''
 Barrier call (up-and-out) payoffs
@@ -34,7 +29,13 @@ def barrier_payoff_single_path(path, strike_price, barrier):
         if price >= barrier:
             return 0.0
 
-    return 0 if path[-1] - strike_price else path[-1] - strike_price
+    return 0 if path[-1] - strike_price < 0 else path[-1] - strike_price
 
 def barrier_payoff_per_path(paths, strike_price, barrier):
-    pass
+    n_paths, n_steps = np.shape(paths)
+    payoffs = np.zeros(n_paths)
+    for idx, path in enumerate(paths):
+        payoffs[idx] = barrier_payoff_single_path(path, strike_price, barrier)
+    return payoffs
+
+
