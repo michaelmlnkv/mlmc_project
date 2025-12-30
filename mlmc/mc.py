@@ -1,7 +1,7 @@
 import numpy as np
 from numba import njit
 from mlmc.payoffs import barrier_payoff_per_path
-from sde import simulate_gbm_paths_recursive
+from mlmc.sde import simulate_gbm_paths_recursive
 from mlmc.payoffs import asian_payoff_per_path
 
 @njit
@@ -15,6 +15,7 @@ def _inner_asian_price_mc(paths, strike_price, r, T):
     num_paths = np.shape(payoffs)[0]
     mean, var = _mean_and_var(payoffs)
     mean *= np.exp(-r*T)
+    var *= np.exp(-r * T)
     se = np.sqrt(var / num_paths)
     return mean, se
 
@@ -24,6 +25,7 @@ def _inner_barrier_price_mc(paths, strike_price, barrier, r, T):
     num_paths = np.shape(payoffs)[0]
     mean, var = _mean_and_var(payoffs)
     mean *= np.exp(-r * T)
+    var *= np.exp(-r * T)
     se = np.sqrt(var / num_paths)
     return mean, se
 
@@ -37,6 +39,3 @@ def barrier_price_mc(S0, mu, sigma, n_steps, n_paths, strike_price, barrier, r, 
     mean, se = _inner_barrier_price_mc(paths, strike_price, barrier, r, T)
     return mean, se
 
-S0, r, sigma, T, K = 100.0, 0.05, 0.2, 1.0, 100.0
-price, se = asian_price_mc(S0, r, sigma, 128, 50000, K, r, T)
-print(price, se)

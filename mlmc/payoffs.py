@@ -1,6 +1,5 @@
 import numpy as np
 from numba import njit
-from sde import simulate_gbm_paths_recursive
 
 '''
 Asian payoffs
@@ -31,6 +30,7 @@ def barrier_payoff_single_path(path, strike_price, barrier):
 
     return 0 if path[-1] - strike_price < 0 else path[-1] - strike_price
 
+@njit
 def barrier_payoff_per_path(paths, strike_price, barrier):
     n_paths, n_steps = np.shape(paths)
     payoffs = np.zeros(n_paths)
