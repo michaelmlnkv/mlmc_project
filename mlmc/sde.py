@@ -1,6 +1,7 @@
 import numpy as np
 from numba import njit
 
+
 @njit
 
 def simulate_gbm_paths_closed_form(S0, mu, sigma, n_steps, n_paths):
@@ -64,9 +65,7 @@ def simulate_gbm_coupled_paths(S0, mu, sigma, T, level, n_paths):
             fine_paths[path, fine_step_2] = (fine_paths[path, fine_step_2 - 1] *
                                              np.exp((mu - 0.5 * sigma ** 2) * dt_fine + sigma * sqrt_dt_fine * Z2))
 
-    return coarse_paths, fine_paths
-
-
+    return fine_paths, coarse_paths
 
 
 
