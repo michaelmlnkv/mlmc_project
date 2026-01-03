@@ -86,13 +86,14 @@ def barrier_price_mc(S0, mu, sigma, n_steps, n_paths, strike_price, barrier, r, 
 Single level correction, sample variance, and cost calculations
 '''
 #Asian
-def _single_level_calc_asian(S0, mu, sigma, level, n_paths, strike_price, r, T):
+def _single_level_calc_asian(S0, mu, sigma, level, n_paths, strike_price, r, T, return_corrections=False):
     warmup()
     start = time.perf_counter_ns()
     if level != 0:
         fine_paths, coarse_paths = simulate_gbm_coupled_paths(S0, mu, sigma, T, level, n_paths)
         corrections = asian_corrections(fine_paths, coarse_paths, strike_price)
         mean, var = _mean_and_var(corrections)
+        correction_sum = sum(corrections) * np.exp(-r * T)
         mean *= np.exp(-r * T)
         var *= np.exp(-2 * r * T)
         se = np.sqrt(var / n_paths)
@@ -101,9 +102,12 @@ def _single_level_calc_asian(S0, mu, sigma, level, n_paths, strike_price, r, T):
     else:
         paths = simulate_gbm_paths_recursive(S0, mu, sigma, T, 1, n_paths)
         mean, se, var = _inner_asian_price_mc(paths, strike_price, r, T) #already discounted
+        correction_sum = (n_paths * mean) * np.exp(-r * T)
 
     end  = time.perf_counter_ns()
     cost = end - start
+    if return_corrections:
+        return mean, var, cost/n_paths, correction_sum
     return mean, var, cost / n_paths
 
 #Barrier
@@ -127,7 +131,7 @@ def _single_level_calc_barrier(S0, mu, sigma, level, n_paths, strike_price, barr
     return mean, var, cost / n_paths
 
 '''
-MLMC Estimator
+MLMC Estimator (Asian)
 '''
 def _asian_mlmc_estimate(S0, mu, sigma, max_levels, paths_p_level, strike_price, r, T):
     price = 0.0
@@ -143,11 +147,40 @@ def _asian_mlmc_estimate(S0, mu, sigma, max_levels, paths_p_level, strike_price,
     se = np.sqrt(se)
     return price, se, np.array(level_contributions)
 
-def _path_number_calculation(S0, mu, sigma, max_levels, n_paths, strike_price, r, T):
-    paths_per_level = []
-    est_var_p_level = []
-    est_cost_p_level = []
+def _variance_estimator_asian(S0, mu, sigma, max_level, n_paths, strike_price, r, T):
+    est_var = []
+    est_cost = []
+    means = []
+    corrections_p_lvl = []
+    for level in range(max_level+1):
+        mean, var, cost_p_path, correction_sum = _single_level_calc_asian(S0, mu, sigma, level, n_paths, strike_price, r, T, return_corrections=True)
+        est_var.append(var)
+        est_cost.append(cost_p_path)
+        means.append(mean)
+        corrections_p_lvl.append(correction_sum)
+    return np.array(means), np.array(est_var), np.array(est_cost), np.array(corrections_p_lvl)
+
+def _per_level_path_calc_asian(max_level, level, vars, cost, epsilon):
+    ir = 0.0
+    for lvl in range(max_level+1):
+        ir += np.sqrt(vars[lvl]*cost[lvl])
+    paths = (2/epsilon**2) * ir * np.sqrt(vars[level]/cost[level])
+    return int(np.ceil(paths))
+
+def _path_number_calculation_asian(S0, mu, sigma, max_levels, strike_price, r, T, epsilon):
+    add_paths_p_lvl = []
+    n_pilot = 5000
+    est_mean, est_vars, est_costs, pilot_corrections = _variance_estimator_asian(S0, mu, sigma, max_levels, n_pilot, strike_price, r, T)
     for level in range(max_levels+1):
-        pass
+        paths_total = _per_level_path_calc_asian(max_levels, level, est_vars, est_costs, epsilon)
+        paths_add = max(paths_total-5000, 0)
+        add_paths_p_lvl.append(paths_add)
+    return np.array(add_paths_p_lvl), pilot_corrections
+
+def mlmc_asian(S0, mu, sigma, max_level, strike_price, r, T, epsilon):
+    paths_p_level, pilot_corrections_sum = _path_number_calculation_asian(S0, mu, sigma, max_level, strike_price, r, T, epsilon)
+
+
+
 
 

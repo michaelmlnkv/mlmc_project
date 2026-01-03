@@ -4,14 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e86c17bb-dafe-4c8b-8dc7-409c406d88e5" name="Changes" comment="made convergence plots for asian + barrier">
-      <change afterPath="$PROJECT_DIR$/experiments/asian_variance_cost.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/experiments/barrier_variance_cost.py" afterDir="false" />
+    <list default="true" id="e86c17bb-dafe-4c8b-8dc7-409c406d88e5" name="Changes" comment="variance+cost vs h plots for asian + barrier">
+      <change afterPath="$PROJECT_DIR$/experiments/fct_test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/test_gbm.py" beforeDir="false" afterPath="$PROJECT_DIR$/experiments/test_gbm.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mlmc/mc.py" beforeDir="false" afterPath="$PROJECT_DIR$/mlmc/mc.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mlmc/payoffs.py" beforeDir="false" afterPath="$PROJECT_DIR$/mlmc/payoffs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mlmc/sde.py" beforeDir="false" afterPath="$PROJECT_DIR$/mlmc/sde.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,18 +24,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "michaelmlnkv"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;michaelmlnkv&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/michaelmlnkv/mlmc_project.git",
-    "accountId": "0c16aa51-1f97-4e2b-ab49-d15e359b3aef"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/michaelmlnkv/mlmc_project.git&quot;,
+    &quot;accountId&quot;: &quot;0c16aa51-1f97-4e2b-ab49-d15e359b3aef&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -57,6 +53,7 @@
     "Python.asian_variance_decay.executor": "Run",
     "Python.barrier_convergence.executor": "Run",
     "Python.barrier_variance_cost.executor": "Run",
+    "Python.fct_test.executor": "Run",
     "Python.mc.executor": "Run",
     "Python.payoffs.executor": "Run",
     "Python.sde.executor": "Run",
@@ -95,7 +92,8 @@
       <updated>1764103888224</updated>
       <workItem from="1764103889379" duration="8703000" />
       <workItem from="1767023503633" duration="62000" />
-      <workItem from="1767023576339" duration="32890000" />
+      <workItem from="1767023576339" duration="32941000" />
+      <workItem from="1767442358654" duration="4928000" />
     </task>
     <task id="LOCAL-00001" summary="Implemented basic and coupled GBM, Asian and barrier option payoffs">
       <option name="closed" value="true" />
@@ -129,7 +127,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767133149954</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="variance+cost vs h plots for asian + barrier">
+      <option name="closed" value="true" />
+      <created>1767226210191</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1767226210191</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -151,15 +157,17 @@
     <MESSAGE value="Slight restructuring" />
     <MESSAGE value="finished asian + barrier pricing, created convergence files" />
     <MESSAGE value="made convergence plots for asian + barrier" />
-    <option name="LAST_COMMIT_MESSAGE" value="made convergence plots for asian + barrier" />
+    <MESSAGE value="variance+cost vs h plots for asian + barrier" />
+    <option name="LAST_COMMIT_MESSAGE" value="variance+cost vs h plots for asian + barrier" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/mlmc_project$sde.coverage" NAME="sde Coverage Results" MODIFIED="1767198987099" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mlmc" />
     <SUITE FILE_PATH="coverage/mlmc_project$payoffs.coverage" NAME="payoffs Coverage Results" MODIFIED="1767198992967" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mlmc" />
-    <SUITE FILE_PATH="coverage/mlmc_project$asian_variance_cost.coverage" NAME="asian_variance_cost Coverage Results" MODIFIED="1767199037932" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/experiments" />
+    <SUITE FILE_PATH="coverage/mlmc_project$asian_variance_cost.coverage" NAME="asian_variance_cost Coverage Results" MODIFIED="1767443337101" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/experiments" />
     <SUITE FILE_PATH="coverage/mlmc_project$asian_variance_decay.coverage" NAME="asian_variance_decay Coverage Results" MODIFIED="1767195113246" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/experiments" />
     <SUITE FILE_PATH="coverage/mlmc_project$barrier_variance_cost.coverage" NAME="barrier_variance_cost Coverage Results" MODIFIED="1767196154436" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/experiments" />
     <SUITE FILE_PATH="coverage/mlmc_project$asian_convergence.coverage" NAME="asian_convergence Coverage Results" MODIFIED="1767181521631" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/experiments" />
+    <SUITE FILE_PATH="coverage/mlmc_project$fct_test.coverage" NAME="fct_test Coverage Results" MODIFIED="1767446698153" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/experiments" />
     <SUITE FILE_PATH="coverage/mlmc_project$barrier_convergence.coverage" NAME="barrier_convergence Coverage Results" MODIFIED="1767131768762" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/experiments" />
     <SUITE FILE_PATH="coverage/mlmc_project$test_gbm.coverage" NAME="test_gbm Coverage Results" MODIFIED="1767137314264" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/experiments" />
     <SUITE FILE_PATH="coverage/mlmc_project$mc.coverage" NAME="mc Coverage Results" MODIFIED="1767198999749" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mlmc" />
