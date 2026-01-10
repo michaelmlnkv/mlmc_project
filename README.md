@@ -28,3 +28,27 @@ The effectiveness of MLMC relies on coupling the simulations at levels $l$ and $
 Because the variance of the level corrections decreases with $l$ while the cost per sample increases, MLMC allocates many samples to coarse, inexpensive levels and progressively fewer samples to finer, more expensive levels. An optimal allocation balances variance and cost across levels, yielding a Monte Carlo estimator whose total variance is controlled while minimizing computational effort.
 
 Under suitable conditions on the payoff regularity and discretization scheme, MLMC achieves an overall computational complexity of $O(\varepsilon^{-2})$ for a target RMSE $\varepsilon$, representing a significant improvement over single–level Monte Carlo. This project applies MLMC to option pricing problems and demonstrates its efficiency gains empirically.
+
+## Options
+Let $K$ be strike price of the option, $r$ the risk-free rate, and $T$ be exercising time.
+### Asian Option
+Let $A(0,T)$ denote the average price of the underlying over time period $[0,T]$. The payoff $P(T) = max(0, A(0,T) - K)$. Thus, the fair price is the discounted payoff $V = e^{-rT}P(T)$.
+### Barrier Option (Up-and-out)
+Let $B$ be a barrier, i.e., if the price of the underlying rises over $B$ at any time in $[0,T], the payoff becomes 0 ("the option gets knocked out"). If the price at time $T$ is $S(T)$, then the payoff $P(T)$ is $max(0, S(T)-K)$ if the price never broke the barrier, and 0 otherwise. Similarly, the fair price $V$ is $P(T)e^{-rT}$.
+
+## Single-level MC Experiments
+For the following experiments we set parameters $S(0) = 100, r = \mu = 0.05, \sigma = 0.2, T = 1.0, K = 100, B = 120$.
+### Asian Convergence 
+First, we estimate a baseline with 4096 steps and 200,000 paths to minimize both the discretization bias as well as MC variance. Then, we compute error for step numbers in $[16, 32, 64, 128, 256, 512]$, each with 50,000 paths.
+
+<img width="480" height="360" alt="image" src="https://github.com/user-attachments/assets/2762ad18-ed04-484b-9617-c8654adb395c" /> <img width="480" height="360" alt="image" src="https://github.com/user-attachments/assets/1f04dff0-b274-4ac2-a672-aa32c8b3d1b1" />
+We can see that the bias doesn't decay cleanly as $h$ gets smaller (we expect it to decay as $O(h)$, i.e., a straight line with slope 1 in a log-log plot). This tells us that the MC variance dominates the error (y-axis on the left graph), so we have to find a way to reduce this variance. On the right, we plot the price vs number of steps, including the MC standard error interval. It is a good sign that most of the SE intervals contain the true price, but it is slightly concerning to see the SE interval with the highest number of steps not include the baseline.
+
+### Barrier Convergence 
+We follow the same procedure as above.
+
+<img width="480" height="360" alt="image" src="https://github.com/user-attachments/assets/85fa1fe2-ef39-412c-bee7-f3daadaa856c" /> <img width="480" height="360" alt="image" src="https://github.com/user-attachments/assets/3c685120-d4b0-4b9d-9d2f-2c7ae82963fc" />
+For the barrier option we can clearly see the bias decrease as $h$ gets smaller. This tells us that for barrier options, the discretization bias dominates the error, so increasing the number of steps (making $h$ smaller) yields a clear improvement. We can also see the price of the option decrease as the number of steps grows, because more knockouts get detected, so the price drops toward the "true", more finely monitored, value.
+
+
+
