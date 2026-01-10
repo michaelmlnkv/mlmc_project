@@ -42,12 +42,14 @@ For the following experiments we set parameters $S(0) = 100, r = \mu = 0.05, \si
 First, we estimate a baseline with 4096 steps and 200,000 paths to minimize both the discretization bias as well as MC variance. Then, we compute error for step numbers in $[16, 32, 64, 128, 256, 512]$, each with 50,000 paths.
 
 <img width="480" height="360" alt="image" src="https://github.com/user-attachments/assets/2762ad18-ed04-484b-9617-c8654adb395c" /> <img width="480" height="360" alt="image" src="https://github.com/user-attachments/assets/1f04dff0-b274-4ac2-a672-aa32c8b3d1b1" />
+
 We can see that the bias doesn't decay cleanly as $h$ gets smaller (we expect it to decay as $O(h)$, i.e., a straight line with slope 1 in a log-log plot). This tells us that the MC variance dominates the error (y-axis on the left graph), so we have to find a way to reduce this variance. On the right, we plot the price vs number of steps, including the MC standard error interval. It is a good sign that most of the SE intervals contain the true price, but it is slightly concerning to see the SE interval with the highest number of steps not include the baseline.
 
 ### Barrier Convergence 
 We follow the same procedure as above.
 
 <img width="480" height="360" alt="image" src="https://github.com/user-attachments/assets/85fa1fe2-ef39-412c-bee7-f3daadaa856c" /> <img width="480" height="360" alt="image" src="https://github.com/user-attachments/assets/3c685120-d4b0-4b9d-9d2f-2c7ae82963fc" />
+
 For the barrier option we can clearly see the bias decrease as $h$ gets smaller. This tells us that for barrier options, the discretization bias dominates the error, so increasing the number of steps (making $h$ smaller) yields a clear improvement. We can also see the price of the option decrease as the number of steps grows, because more knockouts get detected, so the price drops toward the "true", more finely monitored, value.
 
 
