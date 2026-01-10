@@ -10,7 +10,7 @@ def main():
     K = 100.0
     mu = r
 
-    n_paths_ref = 200000
+    n_paths_ref = 300000
     n_steps_ref = 4096
     print("Starting reference calculation")
     price_ref, se_ref = asian_price_mc(S0, mu, sigma, n_steps_ref, n_paths_ref, K, r, T)

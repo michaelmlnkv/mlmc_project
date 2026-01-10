@@ -11,7 +11,7 @@ def main():
     barrier = 120
     mu = r
 
-    n_paths_ref = 200000
+    n_paths_ref = 300000
     n_steps_ref = 4096
     print("Starting reference calculation")
     price_ref, se_ref = barrier_price_mc(S0, mu, sigma, n_steps_ref, n_paths_ref, K, barrier, r, T)
