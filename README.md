@@ -66,7 +66,6 @@ We can see that the cost the per sample behaves exactly as expected. The varianc
 In this case, our payoff function is not nearly as smooth as taking an average over a path. Intuitively, the discontinuities are introduced due to the fact that more points corresponds to more opportunities for $S$ to cross the barrier $B$, and the option to get knocked out. Thus, even with coupled paths, the coarse path might not break the barrier, but the finer path might. We observe the significantly slower variance decay in the following plot, as well as the expected $O(2^l)$ cost per sample.
 
 <img width="320" height="240" alt="image" src="https://github.com/user-attachments/assets/f1c64adf-160a-4663-8dd3-bae59a3f6370" /> <img width="320" height="240" alt="image" src="https://github.com/user-attachments/assets/1c4a971d-96b0-4338-b230-f755ca6c448e" />
-![Uploading image.png…]()
 
 The fitted slope is around 0.488, significantly less than the Asian option's 1.9.
 
