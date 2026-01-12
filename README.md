@@ -10,7 +10,7 @@ this ensures that as $l \uparrow$, $Var(\Delta_l) \to 0$, making the required nu
 We can break the error of our MC's estimate $\hat{V}_h$ w.r.t the true option price $V$ from $|\hat{V}_h - V| \leq |\hat{V}_h - V_h| + |V_h - V| \leq \varepsilon$ (with $V_h$ being the true discretized price). Assuming we allocate our error budget equally, we
 have $\varepsilon/2$ for the variance error ($|\hat{V}_h - V|$), and $\varepsilon/2$ for the bias error ($|V_h - V|$). To control the variance error, we want our SE to be less than $\varepsilon/\sqrt{N}$, implying that 
 our number of samples $N = O(\varepsilon^{-2})$ (by CLT, the SE of classic MC is $\sigma / \sqrt{N}$). Similarly, the discretization bias for Asian and Barrier call options is $O(h)$, and since $h = T/n$, we can 
-conclude that the number of points per sample $n = O(\varepsilon^{-1})$. Thus, the combined computational cost for classic MC is $O(\varepsilon^{-2} \times O(\varepsilon^{-1}) = O(\varepsilon^{-3})$, i.e., if you want to 
+conclude that the number of points per sample $n = O(\varepsilon^{-1})$. Thus, the combined computational cost for classic MC is $O(\varepsilon^{-2}) \times O(\varepsilon^{-1}) = O(\varepsilon^{-3})$, i.e., if you want to 
 halve the error, you must perform 8x the computational cost.
 
 Multi-level MC solves this issue by using the telescoping sum mentioned above $\mathbb{E}[V_L] = \mathbb{E}[V_0] + \sum_{l=1}^L \mathbb{E}[V_l] - \mathbb{E}[V_{l-1}]$. The total number of required paths still remains
