@@ -34,7 +34,7 @@ Let $K$ be strike price of the option, $r$ the risk-free rate, and $T$ be exerci
 ### Asian Option
 Let $A(0,T)$ denote the average price of the underlying over time period $[0,T]$. The payoff $P(T) = max(0, A(0,T) - K)$. Thus, the fair price is the discounted payoff $V = e^{-rT}P(T)$.
 ### Barrier Option (Up-and-out)
-Let $B$ be a barrier, i.e., if the price of the underlying rises over $B$ at any time in $[0,T], the payoff becomes 0 ("the option gets knocked out"). If the price at time $T$ is $S(T)$, then the payoff $P(T)$ is $max(0, S(T)-K)$ if the price never broke the barrier, and 0 otherwise. Similarly, the fair price $V$ is $P(T)e^{-rT}$.
+Let $B$ be a barrier, i.e., if the price of the underlying rises over $B$ at any time in $[0,T]$, the payoff becomes 0 ("the option gets knocked out"). If the price at time $T$ is $S(T)$, then the payoff $P(T)$ is $max(0, S(T)-K)$ if the price never broke the barrier, and 0 otherwise. Similarly, the fair price $V$ is $P(T)e^{-rT}$.
 
 ## Single-level MC Experiments
 For the following experiments we set parameters $S(0) = 100, r = \mu = 0.05, \sigma = 0.2, T = 1.0, K = 100, B = 120$.
