@@ -4,8 +4,8 @@ Efficiently and correctly pricing options is important. However, pricing methods
 as well as a high required discretization density (bias). To solve this, we implement a [Multi-level Monte Carlo method](https://people.maths.ox.ac.uk/gilesm/files/acta15.pdf) (introduced by Michael B. Giles, University
 of Oxford). The core idea behind this improvement over classic MC
 is to use the identity $\mathbb{E}[V_L] = \mathbb{E}[V_0] + \sum_{l=1}^L \mathbb{E}[V_l] - \mathbb{E}[V_{l-1}]$, and computing $\Delta_l \approx \mathbb{E}[V_l] - \mathbb{E}[V_{l-1}]$ using **coupled** paths, with 
-$2^l$ (fine path) and $2^{l-1}$ (coarse path) points per path.
-This ensures that as $l \uparrow$, $Var(\Delta_l) \to 0$, making the required number of samples shrink significantly, only requiring a very small number of samples at the highest level, thus significantly reducing computational cost.
+$2^l$ (fine path) and $2^{l-1}$ (coarse path) points per path. If we denote $\Delta_l = V_l - V_{l-1}$ a **corrections**, then
+this ensures that as $l \uparrow$, $Var(\Delta_l) \to 0$, making the required number of samples shrink significantly, only requiring a very small number of samples at the highest level, thus significantly reducing computational cost.
 ## Motivation
 We can break the error of our MC's estimate $\hat{V}_h$ w.r.t the true option price $V$ from $|\hat{V}_h - V| \leq |\hat{V}_h - V_h| + |V_h - V| \leq \varepsilon$ (with $V_h$ being the true discretized price). Assuming we allocate our error budget equally, we
 have $\varepsilon/2$ for the variance error ($|\hat{V}_h - V|$), and $\varepsilon/2$ for the bias error ($|V_h - V|$). To control the variance error, we want our SE to be less than $\varepsilon/\sqrt{N}$, implying that 
@@ -50,7 +50,27 @@ We follow the same procedure as above.
 
 <img width="480" height="360" alt="image" src="https://github.com/user-attachments/assets/85fa1fe2-ef39-412c-bee7-f3daadaa856c" /> <img width="480" height="360" alt="image" src="https://github.com/user-attachments/assets/3c685120-d4b0-4b9d-9d2f-2c7ae82963fc" />
 
-For the barrier option we can clearly see the bias decrease as $h$ gets smaller. This tells us that for barrier options, the discretization bias dominates the error, so increasing the number of steps (making $h$ smaller) yields a clear improvement. We can also see the price of the option decrease as the number of steps grows, because more knockouts get detected, so the price drops toward the "true", more finely monitored, value.
+For the barrier option we can clearly see the bias decrease as $h$ gets smaller. This tells us that for barrier options, the discretization bias dominates the error, so increasing the number of steps (making $h$ smaller) yields a clear improvement. We can also see the price of the option decrease as the number of steps grows, which we can attribute to more knockouts being detected, making the price drop toward the "true", more finely monitored, value.
+
+## Variance Decay
+From the above experiments we can see that we need a way of decreasing variance without paying the $1/ \sqrt{N}$ computational cost. As a first step towards this goal, we first observe the variance decay of the corrections when using coupled fine/coarse paths.
+We use the same parameters as above, and calculate cost per sample $C_l$ by timing the calculations for a single level and dividing by the number of samples (here, number of paths). We expect this to follow $C_l = O(2^l)$ since we use $2^l$ points per (fine) path. The coarse path using $2^{l-1}$ points is also $O(2^l)$.
+### Asian Options
+Since our payoff function (taking an average over a path) is sufficiently smooth, we can conclude that our fair price is also sufficiently smooth (product of 2 "sufficiently smooth" functions, e.g. Lipschitz continuous). We know that exact GBM updates have strong order $\alpha \approx 1$, so $\mathbb{E}[|V_l - V|^2]^{1/2} = O(h_l^\alpha) = O(h_l)$, implying that due to the fine and coarse paths being coupled, the difference $|\Delta_l| = |V_l - V_{l-1}| = |V_l - V + V - V_{l-1}| \leq |V_l - V| + |V_{l-1} - V| = O(h_l) + O(h_{l-1}) = O(h_l)$. Then, it clearly follows that $\Delta_l^2 = O(h^2_l)$. It is important to know that $\mathbb{E}[\Delta_l] << \Delta^l$, so we can make the approximation $Var(\Delta_l) = \mathbb{E}[(\Delta_l - \mathbb{E}[\Delta_L])^2] \approx \mathbb{E}[\Delta_l^2] = O(h^2_l)$. Thus, we expect to see a straight line with slope 2 on a loglog plot of $Var(\Delta_l)$ vs $h_l$. 
+We also plot the cost per sample $C_l$ vs level $l$, and expect to see a straight line of slope 2 on a semilog ($C_l$ with log scale) plot.
+
+<img width="480" height="360" alt="image" src="https://github.com/user-attachments/assets/5ee860c3-c0f9-4301-80fa-484d0eb392be" /> <img width="480" height="360" alt="image" src="https://github.com/user-attachments/assets/ca5bef90-5e22-4368-91a6-560bb42cd1ce" />
+
+We can see that the cost the per sample behaves exactly as expected. The variance decays slightly worse than we would like, with a fitted slope of around 1.9. However, this is still close enough to verify that the variance decays approximately as we expect.
+### Barrier Options
+In this case, our payoff function is not nearly as smooth as taking an average over a path. Intuitively, the discontinuities are introduced due to the fact that more points corresponds to more opportunities for $S$ to cross the barrier $B$, and the option to get knocked out. Thus, even with coupled paths, the coarse path might not break the barrier, but the finer path might. We observe the significantly slower variance decay in the following plot, as well as the expected $O(2^l)$ cost per sample.
+
+<img width="480" height="369" alt="image" src="https://github.com/user-attachments/assets/f1c64adf-160a-4663-8dd3-bae59a3f6370" /> <img width="480" height="360" alt="image" src="https://github.com/user-attachments/assets/1c4a971d-96b0-4338-b230-f755ca6c448e" />
+
+The fitted slope is around 0.488, significantly less than the Asian option's 1.9.
+
+
+
 
 
 
