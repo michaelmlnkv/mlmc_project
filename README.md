@@ -4,7 +4,7 @@ Efficiently and correctly pricing options is important. However, pricing methods
 as well as a high required discretization density (bias). To solve this, we implement a [Multi-level Monte Carlo method](https://people.maths.ox.ac.uk/gilesm/files/acta15.pdf) (introduced by Michael B. Giles, University
 of Oxford). The core idea behind this improvement over classic MC
 is to use the identity $\mathbb{E}[V_L] = \mathbb{E}[V_0] + \sum_{l=1}^L \mathbb{E}[V_l] - \mathbb{E}[V_{l-1}]$, and computing $\Delta_l \approx \mathbb{E}[V_l] - \mathbb{E}[V_{l-1}]$ using **coupled** paths, with 
-$2^l$ (fine path) and $2^{l-1}$ (coarse path) points per path. If we denote $\Delta_l = V_l - V_{l-1}$ a **corrections**, then
+$2^l$ (fine path) and $2^{l-1}$ (coarse path) points per path. If we denote $\Delta_l = V_l - V_{l-1}$ a **correction**, then
 this ensures that as $l \uparrow$, $Var(\Delta_l) \to 0$, making the required number of samples shrink significantly, only requiring a very small number of samples at the highest level, thus significantly reducing computational cost.
 ## Motivation
 We can break the error of our MC's estimate $\hat{V}_h$ w.r.t the true option price $V$ from $|\hat{V}_h - V| \leq |\hat{V}_h - V_h| + |V_h - V| \leq \varepsilon$ (with $V_h$ being the true discretized price). Assuming we allocate our error budget equally, we
