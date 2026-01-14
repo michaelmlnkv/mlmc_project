@@ -85,7 +85,7 @@ To start, let $\varepsilon > 0$.
   
 <img width="700" height="500" alt="image" src="https://github.com/user-attachments/assets/7d2b78a1-a5e5-41c0-a430-4552b5672f7a" />
 
-We can clearly see that as $\varepsilon$ gets smaller, the runtime vs accuracy loglog plot of MC runs parallel to $O(\varepsilon^{-3})$, MLMC runs parallel to $(\varepsilon^{-2})$, and that the cost of MLMC becomes significantly less than MC. The flatter part of the MLMC graph towards the right side of the plot can be attributed to the pilot runs doing more work than was necessary for the larger $\varepsilons$. This plot shows us that for Asian options, MLMC is much more efficient than classic MC.
+We can clearly see that as $\varepsilon$ gets smaller, the runtime vs accuracy loglog plot of MC runs parallel to $O(\varepsilon^{-3})$, MLMC runs parallel to $(\varepsilon^{-2})$, and that the cost of MLMC becomes significantly less than MC. The flatter part of the MLMC graph towards the right side of the plot can be attributed to the pilot runs doing more work than was necessary for larger $\varepsilon$. This plot shows us that for Asian options, MLMC is much more efficient than classic MC.
 
 
 
