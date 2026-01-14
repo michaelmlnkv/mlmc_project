@@ -1,4 +1,4 @@
-# Multi-level Monte Carlo vs Classic Monte Carlo for Asian and Barrier call option pricing
+# Multi-level Monte Carlo vs Classic Monte Carlo for Asian and Barrier Call Option Pricing
 ## Introduction
 Efficiently and correctly pricing options is important. However, pricing methods utilizing classic Monte Carlo methods can be inefficient, especially given a small $\varepsilon$ due to the large number of paths (to minimize variance),
 as well as a high required discretization density (bias). To solve this, we implement a [Multi-level Monte Carlo method](https://people.maths.ox.ac.uk/gilesm/files/acta15.pdf) (introduced by Michael B. Giles, University
@@ -28,6 +28,9 @@ The effectiveness of MLMC relies on coupling the simulations at levels $l$ and $
 Because the variance of the level corrections decreases with $l$ while the cost per sample increases, MLMC allocates many samples to coarse, inexpensive levels and progressively fewer samples to finer, more expensive levels. An optimal allocation balances variance and cost across levels, yielding a Monte Carlo estimator whose total variance is controlled while minimizing computational effort.
 
 Under suitable conditions on the payoff regularity and discretization scheme, MLMC achieves an overall computational complexity of $O(\varepsilon^{-2})$ for a target RMSE $\varepsilon$, representing a significant improvement over single–level Monte Carlo. This project applies MLMC to option pricing problems and demonstrates its efficiency gains empirically.
+
+The standard error for MLMC is defined as such: $SE_{MLMC} = \sqrt{\sum_{l=0}^L \frac{Var(\Delta_l)}{N_l}}$, where $N_l$ is the number of paths allocated to a specific level $l$ (the allocation itself is discussed later).
+The MLMC estimate is $\hat V_L = \sum_{l=0}^L Y_l$, with $Y_l = \frac{1}{N_l} \sum_{i = 0}^{N_l} \Delta_i$.
 
 ## Options
 Let $K$ be strike price of the option, $r$ the risk-free rate, and $T$ be exercising time.
@@ -67,7 +70,23 @@ In this case, our payoff function is not nearly as smooth as taking an average o
 
 <img width="320" height="240" alt="image" src="https://github.com/user-attachments/assets/f1c64adf-160a-4663-8dd3-bae59a3f6370" /> <img width="320" height="240" alt="image" src="https://github.com/user-attachments/assets/1c4a971d-96b0-4338-b230-f755ca6c448e" />
 
-The fitted slope is around 0.488, significantly less than the Asian option's 1.9.
+The fitted slope is around 0.488, significantly less than the Asian option's 1.9, confirming our expectation that the Asian option's smoother payoff function results in a stronger variance decay.
+
+## Multi-level MC vs Classic MC
+In this experiment we compare the cost against error $\varepsilon$ of MLMC and classic MC. For both MLMC and MC we split the error between discretization bias and MC variance evenly. 
+### Asian
+To start, let $\varepsilon > 0$.
+* Classic MC
+    * Number of steps $n = \lceil \frac{2T}{\varepsilon} \rceil$ makes the discretization error $\leq \varepsilon/2$
+    * For the number of paths $N$ we first let $N_0$ be an arbitrary number of paths for a test/pilot run, here 20 000 is used. After we compute $SE_0$ from the pilot run, we then let $N = \lceil N_0 \cdot \left( \frac{2SE_0}{\varepsilon}\right) ^2 \rceil$. This ensures that the number of paths is appropriately scaled so that the variance (SE) is less than $\varepsilon/2$.
+* MLMC
+    * We let the max level $L = 10$. However, there is an option to use an adaptive max level that keeps incrementing $L$ and testing whether $|\hat V_{L+1} - \hat V_L| \leq \varepsilon / 2$: if this condition is fulfilled accept that $L$. This controls the bias of our MLMC estimate.
+    * We want to make $SE_{MLMC} \leq \varepsilon / 2$ while minimizing the total cost $C = \sum_{l=0}^L C_lN_l$, where $C_l$ is the cost per sample on level $l$. The solution to this optimization problem is $N_k = \left( \frac{2}{\varepsilon} \right)^2 \cdot \sum_{l=0}^L \sqrt{Var(\Delta_l) \cdot C_l} \cdot \sqrt{\frac{Var(\Delta_k)}{C_k}}$. Clearly, neither $Var(\Delta_l)$, nor $C_l$ is a known quantity, so we estimate it using a pilot run of 500 samples per level, keeping track of the corrections summed up over the pilot runs. We then calculate the number of additional samples needed per level, finally estimating $Y_l$ for each level to find our estimate $\hat V_L$ and $SE_{MLMC}$.
+  
+<img width="700" height="500" alt="image" src="https://github.com/user-attachments/assets/7d2b78a1-a5e5-41c0-a430-4552b5672f7a" />
+
+We can clearly see that as $\varepsilon$ gets smaller, the runtime vs accuracy loglog plot of MC runs parallel to $O(\varepsilon^{-3})$, MLMC runs parallel to $(\varepsilon^{-2})$, and that the cost of MLMC becomes significantly less than MC. The flatter part of the MLMC graph towards the right side of the plot can be attributed to the pilot runs doing more work than was necessary for the larger $\varepsilons$. This plot shows us that for Asian options, MLMC is much more efficient than classic MC.
+
 
 
 
