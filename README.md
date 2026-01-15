@@ -96,7 +96,7 @@ Similarly, let $\varepsilon > 0$.
     * Similar to the Asian option, we have the option of finding the adaptive max level, but we use $L=12$ to simplify computation.
     * We follow the same procedure described in the Asian option section above.
 
-If we recall the variance decay of the barrier option, we can see that the fitted slope is around 0.488, implying that $Var(\Delta_l) = O(h_l^{0.488}) \approx O(h_l^{0.5})$. This is significantly worse than the Asian option, and we expect both MC and MLMC to perform as such. For classic MC, we expect to see cost $C_{MC} = O(\varepsilon^{-4})$ primarily due to the a higher number of steps being required per sample, scaling as $O(\varepsilon^{-2})$. Similarly, we expect MLMC to perform worse than the $O(\varepsilon^{-2})$ scaling we saw with the Asian option. This can be attributed to the rate of variance decay ($\approx O(\h^{0.5})$) being less than the cost scaling per sample ($O(h^{-1})$) in absolute values. 
+If we recall the variance decay of the barrier option, we can see that the fitted slope is around 0.488, implying that $Var(\Delta_l) = O(h_l^{0.488}) \approx O(h_l^{0.5})$. This is significantly worse than the Asian option, and we expect both MC and MLMC to perform as such. For classic MC, we expect to see cost $C_{MC} = O(\varepsilon^{-4})$ primarily due to the a higher number of steps being required per sample, scaling as $O(\varepsilon^{-2})$. Similarly, we expect MLMC to perform worse than the $O(\varepsilon^{-2})$ scaling we saw with the Asian option. This can be attributed to the rate of variance decay $\approx O(h^{0.5})$ being less than the cost scaling per sample $O(h^{-1})$ in absolute values. 
 
   
 
