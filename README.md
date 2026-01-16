@@ -8,8 +8,8 @@ $2^l$ (fine path) and $2^{l-1}$ (coarse path) points per path. If we denote $\De
 this ensures that as $l \uparrow$, $Var(\Delta_l) \to 0$, making the required number of samples shrink significantly, only requiring a very small number of samples at the highest level, thus significantly reducing computational cost.
 ## Motivation
 We can break the error of our MC's estimate $\hat{V}_h$ w.r.t the true option price $V$ from $|\hat{V}_h - V| \leq |\hat{V}_h - V_h| + |V_h - V| \leq \varepsilon$ (with $V_h$ being the true discretized price). Assuming we allocate our error budget equally, we
-have $\varepsilon/2$ for the variance error ($|\hat{V}_h - V|$), and $\varepsilon/2$ for the bias error ($|V_h - V|$). To control the variance error, we want our SE to be less than $\varepsilon/\sqrt{N}$, implying that 
-our number of samples $N = O(\varepsilon^{-2})$ (by CLT, the SE of classic MC is $\sigma / \sqrt{N}$). Similarly, the discretization bias for Asian and Barrier call options is $O(h)$ and $O(\sqrt{h})$, respectively, and since $h = T/n$, we can 
+have $\varepsilon/2$ for the variance error ($|\hat{V}_h - V|$), and $\varepsilon/2$ for the bias error ($|V_h - V|$). To control the variance error, we want our SE to be less than $\varepsilon/2$, implying that 
+our number of samples $N = O(\varepsilon^{-2})$ (by CLT, the SE of classic MC is $\sigma / \sqrt{N}$, so $\sigma / \sqrt{N} \leq \varepsilon / 2 \implies N \geq 4\sigma^2 / \varepsilon^2 = O(\varepsilon^{-2})$ ). Similarly, the discretization bias for Asian and Barrier call options is $O(h)$ and $O(\sqrt{h})$, respectively, and since $h = T/n$, we can 
 conclude the necessary number of points per sample is $n = O(\varepsilon^{-1})$ (Asian) or $O(\varepsilon^{-2})$ (Barrier). Thus, the combined computational cost for classic MC is $O(\varepsilon^{-2}) \times O(\varepsilon^{-1}) = O(\varepsilon^{-3})$, i.e., if you want to 
 halve the error, you must perform 8x the computational cost (for Asian options). For barrier options, this cost is $O(\varepsilon^{-4})$, increasing the error by a factor of 16 to halve the error.
 
@@ -96,7 +96,9 @@ Similarly, let $\varepsilon > 0$.
     * Similar to the Asian option, we have the option of finding the adaptive max level, but we use $L=12$ to simplify computation.
     * We follow the same procedure described in the Asian option section above.
 
-If we recall the variance decay of the barrier option, we can see that the fitted slope is around 0.488, implying that $Var(\Delta_l) = O(h_l^{0.488}) \approx O(h_l^{0.5})$. This is significantly worse than the Asian option, and we expect both MC and MLMC to perform as such. For classic MC, we expect to see cost $C_{MC} = O(\varepsilon^{-4})$ primarily due to the a higher number of steps being required per sample, scaling as $O(\varepsilon^{-2})$. Similarly, we expect MLMC to perform worse than the $O(\varepsilon^{-2})$ scaling we saw with the Asian option. This can be attributed to the rate of variance decay $\approx O(h^{0.5})$ being less than the cost scaling per sample $O(h^{-1})$ in absolute values. 
+If we recall the variance decay of the barrier option, we can see that the fitted slope is around 0.488, implying that $Var(\Delta_l) = O(h_l^{0.488}) \approx O(h_l^{0.5})$. This is significantly worse than the Asian option, and we expect both MC and MLMC to perform as such. For classic MC, we expect to see cost $C_{MC} = O(\varepsilon^{-4})$ primarily due to the a higher number of steps being required per sample, scaling as $n = O(\varepsilon^{-2})$. Similarly, we expect MLMC to perform worse than the $O(\varepsilon^{-2})$ scaling we saw with the Asian option. This can be attributed to the rate of variance decay $\approx O(h_l^{0.5})$ being less than the cost growth per sample $O(h^{-1})$ (in absolute values). Overall, we anticipate $C_{MLMC} \approx O(\varepsilon^{-3})$.
+
+### Barrier (with Brownian bridge)
 
   
 
