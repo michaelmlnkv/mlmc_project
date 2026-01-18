@@ -19,6 +19,9 @@ def main():
     hs = np.array([])
     costs = np.array([])
 
+    _single_level_calc_barrier(S0, mu, sigma, 0, 50000, K, barrier, r, T)
+    _single_level_calc_barrier(S0, mu, sigma, 1, 50000, K, barrier, r, T)
+
     for idx, level in enumerate(levels):
         mean, var, cost = _single_level_calc_barrier(S0, mu, sigma, level, 50000, K, barrier, r, T)
         vars = np.append(vars, var)

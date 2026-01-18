@@ -1,4 +1,4 @@
-from mlmc.mc import _single_level_calc_asian
+from mlmc.mc import _single_level_calc_barrier
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -10,6 +10,7 @@ def main():
     K = 100.0
     mu = r
     L = 10
+    barrier = 120
     levels = np.array(list(range(L+1)))
     print("levels:", levels)
 
@@ -18,11 +19,11 @@ def main():
     hs = np.array([])
     costs = np.array([])
 
-    _single_level_calc_asian(S0, mu, sigma, 0, 50000, K, r, T)
-    _single_level_calc_asian(S0, mu, sigma, 1, 50000, K, r, T)
+    _single_level_calc_barrier(S0, mu, sigma, 0, 50000, K, barrier, r, T, bridge=True)
+    _single_level_calc_barrier(S0, mu, sigma, 1, 50000, K, barrier, r, T, bridge=True)
 
     for idx, level in enumerate(levels):
-        mean, var, cost = _single_level_calc_asian(S0, mu, sigma, level, 50000, K, r, T)
+        mean, var, cost = _single_level_calc_barrier(S0, mu, sigma, level, 50000, K, barrier, r, T, bridge=True)
         vars = np.append(vars, var)
         hs = np.append(hs, T / (2**level))
         costs = np.append(costs, cost)
@@ -33,28 +34,27 @@ def main():
     # plt.gca().invert_xaxis()
     plt.xlabel("time step h = T / n_steps, smaller is better")
     plt.ylabel("Correction sample variance")
-    plt.title("Asian call: Correction sample variance decay")
+    plt.title("Barrier call: Correction sample variance decay")
     plt.grid(True, which="both")
 
-    # anchor at a mid-level to avoid noise
-    anchor_idx = 4  # e.g. level 4
-    C2 = vars[anchor_idx] / (hs[anchor_idx]**2)
-    plt.loglog(hs, C2 * hs**(2), linestyle="--", label="O(h^2) reference")
-    plt.legend()
-    plt.show()
     start = 2
     beta, logC = np.polyfit(np.log(hs[start:]), np.log(vars[start:]), 1)
     print("Estimated beta:", beta)
-    plt.figure()
+    anchor_idx = 4
+    C2 = vars[anchor_idx] / (hs[anchor_idx])
+    plt.loglog(hs, C2 * hs**beta, linestyle="--", label="O(h^0.458) reference")
+    plt.legend()
+    plt.show()
 
+    plt.figure()
     plt.semilogy(levels, costs, marker="o")
     # plt.gca().invert_xaxis()
     plt.xlabel("level, larger is better")
     plt.ylabel("cost (s)")
-    plt.title("Asian call: Cost per level (s)")
+    plt.title("Barrier call: Cost per level (s)")
     plt.grid(True, which="both")
     c = costs[anchor_idx] / (2 ** levels[anchor_idx])
-    plt.semilogy(levels, c * 2 ** levels, linestyle="--", label="O(2^l) reference")
+    plt.semilogy(levels, c*2**levels, linestyle="--", label="O(2^l) reference")
     plt.legend()
     plt.show()
 if __name__ == "__main__":

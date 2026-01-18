@@ -5,9 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e86c17bb-dafe-4c8b-8dc7-409c406d88e5" name="Changes" comment="MC vs MLMC cost comaprison">
+      <change afterPath="$PROJECT_DIR$/experiments/barrier_bridge_mlmc_vs_mc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/experiments/barrier_bridge_var_cost.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/experiments/barrier_mlmc_vs_mc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mlmc/max_level.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/asian_convergence.py" beforeDir="false" afterPath="$PROJECT_DIR$/experiments/asian_convergence.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/barrier_convergence.py" beforeDir="false" afterPath="$PROJECT_DIR$/experiments/barrier_convergence.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/experiments/asian_mlmc_vs_mc.py" beforeDir="false" afterPath="$PROJECT_DIR$/experiments/asian_mlmc_vs_mc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/experiments/asian_variance_cost.py" beforeDir="false" afterPath="$PROJECT_DIR$/experiments/asian_variance_cost.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/experiments/barrier_variance_cost.py" beforeDir="false" afterPath="$PROJECT_DIR$/experiments/barrier_variance_cost.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mlmc/mc.py" beforeDir="false" afterPath="$PROJECT_DIR$/mlmc/mc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mlmc/payoffs.py" beforeDir="false" afterPath="$PROJECT_DIR$/mlmc/payoffs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mlmc/sde.py" beforeDir="false" afterPath="$PROJECT_DIR$/mlmc/sde.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,38 +52,41 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python.asian_convergence.executor&quot;: &quot;Run&quot;,
-    &quot;Python.asian_mlmc_vs_mc.executor&quot;: &quot;Run&quot;,
-    &quot;Python.asian_variance_cost.executor&quot;: &quot;Run&quot;,
-    &quot;Python.asian_variance_decay.executor&quot;: &quot;Run&quot;,
-    &quot;Python.barrier_convergence.executor&quot;: &quot;Run&quot;,
-    &quot;Python.barrier_variance_cost.executor&quot;: &quot;Run&quot;,
-    &quot;Python.fct_test.executor&quot;: &quot;Run&quot;,
-    &quot;Python.mc.executor&quot;: &quot;Run&quot;,
-    &quot;Python.payoffs.executor&quot;: &quot;Run&quot;,
-    &quot;Python.sde.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_gbm.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.asian_convergence.executor": "Run",
+    "Python.asian_mlmc_vs_mc.executor": "Run",
+    "Python.asian_variance_cost.executor": "Run",
+    "Python.asian_variance_decay.executor": "Run",
+    "Python.barrier_bridge_mlmc_vs_mc.executor": "Run",
+    "Python.barrier_bridge_var_cost.executor": "Run",
+    "Python.barrier_convergence.executor": "Run",
+    "Python.barrier_mlmc_vs_mc.executor": "Run",
+    "Python.barrier_variance_cost.executor": "Run",
+    "Python.fct_test.executor": "Run",
+    "Python.mc.executor": "Run",
+    "Python.payoffs.executor": "Run",
+    "Python.sde.executor": "Run",
+    "Python.test_gbm.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "main",
+    "junie.onboarding.icon.badge.shown": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -95,7 +106,8 @@
       <workItem from="1767023503633" duration="62000" />
       <workItem from="1767023576339" duration="32941000" />
       <workItem from="1767442358654" duration="18616000" />
-      <workItem from="1767541334734" duration="11946000" />
+      <workItem from="1767541334734" duration="50819000" />
+      <workItem from="1768565311120" duration="19534000" />
     </task>
     <task id="LOCAL-00001" summary="Implemented basic and coupled GBM, Asian and barrier option payoffs">
       <option name="closed" value="true" />
@@ -153,15 +165,33 @@
       <option name="project" value="LOCAL" />
       <updated>1767624853958</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="MC vs MLMC cost comaprison">
+      <option name="closed" value="true" />
+      <created>1768062874339</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1768062874339</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="7812beaf-ee4f-4e4b-91bf-f03d201a18d4" value="TOOL_WINDOW" />
+      </map>
+    </option>
     <option name="TAB_STATES">
       <map>
+        <entry key="7812beaf-ee4f-4e4b-91bf-f03d201a18d4">
+          <value>
+            <State />
+          </value>
+        </entry>
         <entry key="MAIN">
           <value>
             <State />
@@ -181,16 +211,19 @@
     <option name="LAST_COMMIT_MESSAGE" value="MC vs MLMC cost comaprison" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/mlmc_project$sde.coverage" NAME="sde Coverage Results" MODIFIED="1767539556051" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mlmc" />
     <SUITE FILE_PATH="coverage/mlmc_project$payoffs.coverage" NAME="payoffs Coverage Results" MODIFIED="1767198992967" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mlmc" />
-    <SUITE FILE_PATH="coverage/mlmc_project$asian_variance_cost.coverage" NAME="asian_variance_cost Coverage Results" MODIFIED="1767570138984" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/experiments" />
-    <SUITE FILE_PATH="coverage/mlmc_project$asian_variance_decay.coverage" NAME="asian_variance_decay Coverage Results" MODIFIED="1767195113246" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/experiments" />
-    <SUITE FILE_PATH="coverage/mlmc_project$barrier_variance_cost.coverage" NAME="barrier_variance_cost Coverage Results" MODIFIED="1767196154436" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/experiments" />
+    <SUITE FILE_PATH="coverage/mlmc_project$barrier_variance_cost.coverage" NAME="barrier_variance_cost Coverage Results" MODIFIED="1768238202744" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/experiments" />
     <SUITE FILE_PATH="coverage/mlmc_project$asian_convergence.coverage" NAME="asian_convergence Coverage Results" MODIFIED="1768044853905" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/experiments" />
-    <SUITE FILE_PATH="coverage/mlmc_project$fct_test.coverage" NAME="fct_test Coverage Results" MODIFIED="1767540453833" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/experiments" />
-    <SUITE FILE_PATH="coverage/mlmc_project$asian_mlmc_vs_mc.coverage" NAME="asian_mlmc_vs_mc Coverage Results" MODIFIED="1767616591709" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/experiments" />
     <SUITE FILE_PATH="coverage/mlmc_project$test_gbm.coverage" NAME="test_gbm Coverage Results" MODIFIED="1767539692257" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/experiments" />
     <SUITE FILE_PATH="coverage/mlmc_project$barrier_convergence.coverage" NAME="barrier_convergence Coverage Results" MODIFIED="1768045641039" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/experiments" />
-    <SUITE FILE_PATH="coverage/mlmc_project$mc.coverage" NAME="mc Coverage Results" MODIFIED="1767539563317" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mlmc" />
+    <SUITE FILE_PATH="coverage/mlmc_project$mc.coverage" NAME="mc Coverage Results" MODIFIED="1768601922429" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mlmc" />
+    <SUITE FILE_PATH="coverage/mlmc_project$sde.coverage" NAME="sde Coverage Results" MODIFIED="1767539556051" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mlmc" />
+    <SUITE FILE_PATH="coverage/mlmc_project$asian_variance_cost.coverage" NAME="asian_variance_cost Coverage Results" MODIFIED="1768258082703" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/experiments" />
+    <SUITE FILE_PATH="coverage/mlmc_project$asian_variance_decay.coverage" NAME="asian_variance_decay Coverage Results" MODIFIED="1767195113246" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/experiments" />
+    <SUITE FILE_PATH="coverage/mlmc_project$barrier_mlmc_vs_mc.coverage" NAME="barrier_mlmc_vs_mc Coverage Results" MODIFIED="1768603664621" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/experiments" />
+    <SUITE FILE_PATH="coverage/mlmc_project$barrier_bridge_var_cost.coverage" NAME="barrier_bridge_var_cost Coverage Results" MODIFIED="1768611203182" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/experiments" />
+    <SUITE FILE_PATH="coverage/mlmc_project$fct_test.coverage" NAME="fct_test Coverage Results" MODIFIED="1767540453833" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/experiments" />
+    <SUITE FILE_PATH="coverage/mlmc_project$asian_mlmc_vs_mc.coverage" NAME="asian_mlmc_vs_mc Coverage Results" MODIFIED="1768406154479" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/experiments" />
+    <SUITE FILE_PATH="coverage/mlmc_project$barrier_bridge_mlmc_vs_mc.coverage" NAME="barrier_bridge_mlmc_vs_mc Coverage Results" MODIFIED="1768612303763" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/experiments" />
   </component>
 </project>

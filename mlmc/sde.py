@@ -67,5 +67,6 @@ def simulate_gbm_coupled_paths(S0, mu, sigma, T, level, n_paths):
 
     return fine_paths, coarse_paths
 
-
-
+@njit
+def _brownian_bridge_calc(start, end, h, barrier, sigma):
+    return np.exp(-(2*(barrier-start)*(barrier-end))/(sigma**2 * h))
